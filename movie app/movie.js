@@ -1,3 +1,5 @@
+
+/*
 var btns = document.querySelectorAll('#movie-list .delete');
 btns.forEach(function (btn) {
 	btn.addEventListener('click', function (e) {
@@ -5,7 +7,16 @@ btns.forEach(function (btn) {
 		li.parentNode.removeChild(li)
 	});
 });
+*/
 
+/*
+  --> Event Bubbling and using it in deleting the movies
+      We will assign event to the ul tag and when the delete button is clicked,
+      event will bubble up to the ul and then we can delete the li associated to the event
+  --> We are using the concept of Event Bubbling to attach the event to UI.
+      Advantage: attaching the event3 to <ul> will help us delete any new <li> attached to movie-list
+  --> Now this is good because if we have to add another movie to the list, we can delete it unlike the previous event listener.
+*/
 
 //this will delete new added movie also
 var list = document.querySelector('#movie-list ul');
@@ -53,4 +64,30 @@ hideform.addEventListener('click', function (e) {
 })
 
 
+//visibilty will hide the list but space is still there
+/*if(list.style.visibility =="hidden"){
+    list.style.visibility ="visible";
+}
+    else {
+        list.style.visibility= "hidden";
+    }*/
 
+
+
+
+//Search an item
+var searchForm = document.forms['search-movies'][0];
+searchForm.addEventListener('keyup', function (e) {
+	var searchItem = list.querySelectorAll('li');
+	var filter = e.target.value.toUpperCase();
+	Array.from(searchItem).forEach(function (text) {
+		var textVal = text.firstElementChild.textContent;
+		if (textVal.toUpperCase().indexOf(filter) > -1) {
+			text.style.display = 'block';
+		} else {
+			text.style.display = "none";
+		}
+
+	})
+
+})
